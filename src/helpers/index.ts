@@ -1,54 +1,75 @@
-import { Color, Product, VariantProduct } from '../interfaces';
+import { Color, Product, VariantProduct } from "../interfaces";
 
 // Función para formatear el precio a dólares
 export const formatPrice = (price: number) => {
-	return new Intl.NumberFormat('en-US', {
-		style: 'currency',
-		currency: 'USD',
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	}).format(price);
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(price);
 };
 
 // Función para preparar los productos - (CELULARES)
 export const prepareProducts = (products: Product[]) => {
-	return products.map(product => {
-		// Agrupar las variantes por color
-		const colors = product.variants.reduce(
-			(acc: Color[], variant: VariantProduct) => {
-				const existingColor = acc.find(
-					item => item.color === variant.color
-				);
+  return products.map((product) => {
+    // Agrupar las variantes por color
+    const colors = product.variants.reduce(
+      (acc: Color[], variant: VariantProduct) => {
+        const existingColor = acc.find((item) => item.color === variant.color);
 
-				if (existingColor) {
-					// Si ya existe el color, comparamos los precios
-					existingColor.price = Math.min(
-						existingColor.price,
-						variant.price
-					);
-				} // Mantenemos el precio mínimo
-				else {
-					acc.push({
-						color: variant.color,
-						price: variant.price,
-						name: variant.color_name,
-					});
-				}
+        if (existingColor) {
+          // Si ya existe el color, comparamos los precios
+          existingColor.price = Math.min(existingColor.price, variant.price);
+        } // Mantenemos el precio mínimo
+        else {
+          acc.push({
+            color: variant.color,
+            price: variant.price,
+            name: variant.color_name,
+          });
+        }
 
-				return acc;
-			},
-			[]
-		);
+        return acc;
+      },
+      [],
+    );
 
-		// Obtener el precio más bajo de las variantes agrupadas
-		const price = Math.min(...colors.map(item => item.price));
+    // Obtener el precio más bajo de las variantes agrupadas
+    const price = Math.min(...colors.map((item) => item.price));
 
-		// Devolver el producto formateado
-		return {
-			...product,
-			price,
-			colors: colors.map(({ name, color }) => ({ name, color })),
-			variants: product.variants,
-		};
-	});
+    // Devolver el producto formateado
+    return {
+      ...product,
+      price,
+      colors: colors.map(({ name, color }) => ({ name, color })),
+      variants: product.variants,
+    };
+  });
+};
+
+// Funcion para formatear la fecha a formato DD/MM/YYYY
+export const formatDateLong = (date: string) => {
+  const dateObject = new Date(date);
+  return dateObject.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+// Funcion para obtener el estado de la orden en formato legible
+export const getOrderStatus = (status: string) => {
+  switch (status) {
+    case "Pending":
+      return "Pendiente";
+    case "Paid":
+      return "Pagado";
+    case "Shipeped":
+      return "Enviado";
+    case "Delivered":
+      return "Entregado";
+    default:
+      return "Desconocido";
+  }
 };

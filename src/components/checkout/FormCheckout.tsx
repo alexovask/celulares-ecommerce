@@ -96,6 +96,7 @@ export const FormCheckout = () => {
             {...register("country")}
           >
             <option value="Ecuador">Ecuador</option>
+            <option value="Colombia">Colombia</option>
           </select>
         </div>
 
