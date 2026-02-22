@@ -48,12 +48,22 @@ export const prepareProducts = (products: Product[]) => {
   });
 };
 
-// Funcion para formatear la fecha a formato DD/MM/YYYY
+// Funcion para formatear la fecha a 16 de junio de 2022
 export const formatDateLong = (date: string) => {
   const dateObject = new Date(date);
   return dateObject.toLocaleDateString("es-ES", {
     day: "2-digit",
     month: "long",
+    year: "numeric",
+  });
+};
+
+// Funcion para formatear la fecha a formato DD/MM/YYYY
+export const formatDateShort = (date: string) => {
+  const dateObject = new Date(date);
+  return dateObject.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
     year: "numeric",
   });
 };

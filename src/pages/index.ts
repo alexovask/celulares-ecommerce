@@ -1,10 +1,13 @@
-export * from './HomePage';
-export * from './CellPhonesPage';
-export * from './AboutPage';
-export * from './CellPhonePage';
-export * from './LoginPage';
-export * from './RegisterPage';
-export * from './OrdersUserPage';
-export * from './CheckoutPage';
-export * from './ThankyouPage';
-export * from './OrderUserPage';
+export * from "./HomePage";
+export * from "./CellPhonesPage";
+export * from "./AboutPage";
+export * from "./CellPhonePage";
+export * from "./LoginPage";
+export * from "./RegisterPage";
+export * from "./OrdersUserPage";
+export * from "./CheckoutPage";
+export * from "./ThankyouPage";
+export * from "./OrderUserPage";
+
+// Dashboard pages
+export * from "./dashboard/DashboardProductsPage";
