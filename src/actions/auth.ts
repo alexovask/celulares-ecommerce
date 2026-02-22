@@ -41,8 +41,6 @@ export const signUp = async ({
   const userId = data.user?.id;
   if (!userId) throw new Error("No se pudo obtener el id del usuario.");
 
-  // ⚠️ Si tu proyecto tiene confirmación por correo, data.session puede venir null.
-  // En ese caso, NO intentes loguear aquí; deja que el usuario confirme y luego inicie sesión.
   const hasSession = Boolean(data.session);
 
   // 2) Crear registros en tablas (requiere policies RLS correctas)
@@ -100,6 +98,21 @@ export const getSession = async () => {
   if (error) {
     console.log(error);
     throw new Error("Error al obtener la sesión");
+  }
+
+  return data;
+};
+
+export const getUserData = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("customers")
+    .select("*")
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Error al obtener los datos del usuario");
   }
 
   return data;
