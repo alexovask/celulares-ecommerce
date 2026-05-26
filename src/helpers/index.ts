@@ -83,3 +83,10 @@ export const getOrderStatus = (status: string) => {
       return "Desconocido";
   }
 };
+//Funcion para generar un slug de un producto
+export const generateSlug = (name: string) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+};

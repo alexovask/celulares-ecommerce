@@ -15,6 +15,7 @@ import {
   ThankyouPage,
   OrderUserPage,
   DashboardProductsPage,
+  DashboardNewProductsPage,
 } from "../pages";
 
 export const router = createBrowserRouter([
@@ -85,6 +86,10 @@ export const router = createBrowserRouter([
       {
         path: "productos",
         element: <DashboardProductsPage />,
+      },
+      {
+        path: "productos/new",
+        element: <DashboardNewProductsPage />,
       },
     ],
   },
